@@ -1,0 +1,20 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "back to front project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "mongoose": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": " "
+  },
+  "author": "jeffpash",
+  "license": "ISC"
+}
