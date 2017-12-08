@@ -33,7 +33,6 @@ class Bookstore extends React.Component {
           <div className="row">
             <div className="col-md-12">
               <h1>coming soonnn.......</h1>
-              <img src="./book.jpg" alt=""/>
 
             </div>
           </div>
@@ -46,4 +45,4 @@ class Bookstore extends React.Component {
 
 
 ReactDOM.render(
-  <Bookstore/>, document.getElementById('bookpage'));
+  <Bookstore />, document.getElementById('bookpage'));

@@ -4,7 +4,7 @@ module.exports = {
 
     entry: path.resolve(__dirname, 'client') + '/app/index.js',
     output: {
-        path: path.resolve(__dirname,'dist') +'/app',
+        path: path.resolve(__dirname,'client'),
         filename: 'bundle.js',
         publicPath: '/app/'
     },
@@ -12,7 +12,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                include: path.resolve(__dirname, 'client'),
+                include: path.resolve(__dirname, 'client/'),
                 loader: 'babel-loader',
                 query: {
                     presets: ['react', 'es2015']
