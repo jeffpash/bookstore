@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const Genre = require('./models/genre');
 const Book = require('./models/book');
 
 app.use(express.static(__dirname+'/client'));
-app.use(bodyparser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
 //mongoose connect
@@ -89,5 +90,5 @@ app.delete('/api/books/:_id', (req, res) => {
 });
 
 app.listen(3000, () =>{
-  console.log('Running on port 3000...');
+  console.log('Running server on port 3000...');
 });
