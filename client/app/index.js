@@ -1,5 +1,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+import { Router, Route, IndexRoute, hashHistory } from "react-router";
+import { Books } from "../components/books";
 
 //import css from '../css/styles.css';
 
@@ -7,7 +9,7 @@ class Bookstore extends React.Component {
   render() {
     return (
       <div className="navbar-wrapper">
-        <nav className="navbar navbar-inverse">
+        <nav className="navbar navbar-default">
           <div className="container">
             <div className="navbar-header">
               <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,6 +19,7 @@ class Bookstore extends React.Component {
                 <span className="icon-bar"></span>
               </button>
               <a className="navbar-brand" href="#">Bookstore</a>
+              <a className="navbar-brand" href="#" onClick="list">Books</a>
               <a className="navbar-brand" href="#">Genres</a>
             </div>
             <div id="navbar" className="collapse navbar-collapse">
@@ -32,7 +35,7 @@ class Bookstore extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>coming soonnn.......</h1>
+              <h1>coming soonnn!!!.......</h1>
 
             </div>
           </div>
@@ -40,9 +43,12 @@ class Bookstore extends React.Component {
 
       </div>
     );
-  }
+  };
 }
 
 
 ReactDOM.render(
-  <Bookstore />, document.getElementById('bookpage'));
+  <Router history={hashHistory}>
+    <Route path="/" component={ Bookstore }></Route>
+  </Router>,
+  document.getElementById('bookpage'));
