@@ -1,3 +1,15 @@
 body{
   background-color: #597c34;
 }
+.cont{
+  display: flex;
+  justify-content: space-between;
+}
+.test{
+  width: 200px;
+  height: 200px;
+  border: 2px dotted #fff;
+}
+.navbar-right li{
+  display: flex;
+}
