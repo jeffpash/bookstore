@@ -1,82 +1,73 @@
-//import React from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-// export default class Books extends React.Component {
-//   render() {
-//     return(
-//       <h1>BOOKS</h1>
-//     );
-//   }
-// };
+class Books extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      allbooks: []
+    };
+  }
 
-
-
-  // constructor(props) {
-  //   super(props)
-  //   this.states = {}
-  // }
-
+  componentDidMount() {
+   axios.get('/api/books')
+     .then(res => {
+       this.setState({ allbooks: res.data });
+       console.log(this.state.allbooks);
+     });
+   }
   // componentDidMount() {
-  //   fetch('/api/books')
-  //   .then(res => res.json())
-  //   .then(books => this.setState({ books }));
+  //   fetch('/api/books').then(res => res.json()).then(allbooks => this.setState({allbooks}));
   // }
-  //
-  // ***********************************
-  //
-  // <h1>Books</h1>
-  // <ul>
-  //   {this.state.books.map(book =>
-  //     <li key={book.id}>{book.title}</li>
-  //   )}
-  // </ul>
 
-  // <div className="navbar-wrapper">
-  //   <nav className="navbar navbar-default">
-  //     <div className="container">
-  //       <div className="navbar-header">
-  //         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-  //           <span className="sr-only">Toggle navigation</span>
-  //           <span className="icon-bar"></span>
-  //           <span className="icon-bar"></span>
-  //           <span className="icon-bar"></span>
-  //         </button>
-  //         <a className="navbar-brand" href="#">Bookstore</a>
-  //         <a className="navbar-brand" href="#">Books</a>
-  //         <a className="navbar-brand" href="#">Genres</a>
-  //       </div>
-  //       <div id="navbar" className="collapse navbar-collapse">
-  //         <ul className="nav navbar-nav navbar-right">
-  //           <li>
-  //             <a href="#/books/add">Add Book</a>
-  //             <button type="button" className="btn btn-success">Sign in</button>
-  //             <button type="button" className="btn btn-danger">Sign up</button>
-  //           </li>
-  //         </ul>
-  //       </div>
-  //     </div>
-  //   </nav>
-  //
-  //   <div>{Books}</div>
-  //
-  //   <div className="container">
-  //     <div className="row">
-  //       <div className="col-md-12">
-  //         <h1>coming soonnn!!!.......</h1>
-  //         <div className="cont">
-  //         <div className="test"><img src="/book.jpg" alt="#" /></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         <div className="test"></div>
-  //         </div>
-  //
-  //       </div>
-  //     </div>
-  //   </div>
-  //
-  // </div>
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+        <div className="navbar-brand">
+          <Link to={'/'}>Books
+          </Link>
+        </div>
+        <div className="navbar-brand">
+          <Link to={'/genres'}>
+            Genres
+          </Link>
+        </div>
+      <h4 className="nav navbar-right">
+        <Link to="/add_book" ><span className="glyphicon glyphicon-plus-sign" aria-hidden="true">
+        </span> Add Book </Link></h4>
+        </div>
+        <div className="row">
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <h3 className="panel-title">Bookstore</h3>
+        </div>
+        <div className="panel-body">
+          <div className="row">
+            {
+              this.state.allbooks.map(book => {
+                return (<div className="book col-md-6" key={book.id}>
+                <div className="col-md-6">
+                  <h3>{book.title.toUpperCase()}</h3>
+                  <p className="parSize">{book.description}</p>
+                  <Link to={`/book_details/${book._id}`} className="btn btn-primary btn-block">view details&nbsp;
+                  <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></Link>
+                </div>
+                <div className="col-md-6">
+                  <img src={book.image_url} alt=""/>
+                </div>
+              </div>)})
+            }
+
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    );
+  };
+}
+
+export default Books;

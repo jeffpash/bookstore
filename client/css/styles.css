@@ -1,15 +1,25 @@
-body{
-  background-color: #597c34;
-}
-.cont{
-  display: flex;
-  justify-content: space-between;
-}
-.test{
-  width: 200px;
-  height: 200px;
-  border: 2px dotted #fff;
-}
-.navbar-right li{
-  display: flex;
-}
+ .parSize {
+   height: 12em;
+   line-height: 1.5em;
+   overflow: hidden;
+ }
+
+ #bookpage{
+   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOmO7k9l9AnPXqabcsQN703oKWuFU8tkG6ONzRSLaVKOKUTy54");
+ }
+
+ .parSize:hover {
+   overflow: scroll;
+ }
+
+ .book {}
+
+ .navbar-right li {
+   display: flex;
+ }
+
+ img {
+   width: 100%;
+   height: 300px;
+   padding: 5%;
+ }
