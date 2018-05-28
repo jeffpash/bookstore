@@ -7,7 +7,7 @@ const Genre = require('./models/genre');
 const Book = require('./models/book');
 
 app.use(express.static(__dirname+'/client'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
@@ -57,7 +57,8 @@ app.get('/api/books', (req, res) => {
 app.post('/api/books', (req, res) => {
   const book = req.body;
   Book.addBook(book, (err, book) => {
-    res.json(book);
+    if (err) res.json(err)
+    else res.json(book);
   });
 });
 

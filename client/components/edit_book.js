@@ -57,35 +57,35 @@ class Edit extends Component {
           </h4>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <label for="title">Title:</label>
+              <label htmlFor="title">Title:</label>
               <input type="text" className="form-control" name="title" value={this.state.book.title} onChange={this.onChange} placeholder="Title"/>
             </div>
             <div className="form-group">
-              <label for="genre">Genre:</label>
+              <label htmlFor="genre">Genre:</label>
               <input type="text" className="form-control" name="genre" value={this.state.book.genre} onChange={this.onChange} placeholder="Genre"/>
             </div>
             <div className="form-group">
-              <label for="author">Author:</label>
+              <label htmlFor="author">Author:</label>
               <input type="text" className="form-control" name="author" value={this.state.book.author} onChange={this.onChange} placeholder="Author"/>
             </div>
             <div className="form-group">
-              <label for="description">Description:</label>
+              <label htmlFor="description">Description:</label>
               <input type="text" className="form-control" name="description" value={this.state.book.description} onChange={this.onChange} placeholder="Description"/>
             </div>
             <div className="form-group">
-              <label for="publisher">Publisher:</label>
+              <label htmlFor="publisher">Publisher:</label>
               <input type="text" className="form-control" name="publisher" value={this.state.book.publisher} onChange={this.onChange} placeholder="Publisher"/>
             </div>
             <div className="form-group">
-              <label for="pages">Pages:</label>
+              <label htmlFor="pages">Pages:</label>
               <input type="number" className="form-control" name="pages" value={this.state.book.pages} onChange={this.onChange} placeholder="Pages"/>
             </div>
             <div className="form-group">
-              <label for="image_url">Image_url:</label>
+              <label htmlFor="image_url">Image_url:</label>
               <input type="text" className="form-control" name="image_url" value={this.state.book.image_url} onChange={this.onChange} placeholder="Image_url"/>
             </div>
             <div className="form-group">
-              <label for="buy_url">Buy_url:</label>
+              <label htmlFor="buy_url">Buy_url:</label>
               <input type="text" className="form-control" name="buy_url" value={this.state.book.buy_url} onChange={this.onChange} placeholder="Buy_url"/>
             </div>
             <button type="submit" className="btn btn-success">Submit</button>

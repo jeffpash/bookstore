@@ -26,7 +26,8 @@ class Details extends Component {
   }
 
   render() {
-    return (<div className="container">
+    return (
+    <div className="container">
       <div className="panel panel-default">
         <div className="panel-heading">
           <h2 className="panel-title">
@@ -47,16 +48,16 @@ class Details extends Component {
               <p>{this.state.book.description}</p>
               <ul className="list-group">
                 <li className="list-group-item">
-                  <strong>Genre:</strong>
+                  <strong>Genre: </strong>
                   {this.state.book.genre}</li>
                 <li className="list-group-item">
-                  <strong>Author:</strong>
+                  <strong>Author: </strong>
                   {this.state.book.author}</li>
                 <li className="list-group-item">
-                  <strong>Publisher:</strong>
+                  <strong>Publisher: </strong>
                   {this.state.book.publisher}</li>
                 <li className="list-group-item">
-                  <strong>Pages:</strong>
+                  <strong>Pages: </strong>
                   {this.state.book.pages}</li>
               </ul>
               <a target="_blank" href={this.state.book.buy_url} className="btn btn-primary">Buy Now</a>
@@ -68,36 +69,6 @@ class Details extends Component {
           </div>
         </div>
       </div>
-
-      {/* <div className="panel panel-default">
-          <div className="panel-heading">
-            <h3 className="panel-title">
-              {this.state.book.title}
-            </h3>
-          </div>
-          <div className="panel-body">
-            <h4><Link to="/"><span className="glyphicon glyphicon-th-list" aria-hidden="true"></span> Bookstore</Link></h4>
-            <dl>
-              <dt>Genre:</dt>
-              <dd>{this.state.book.genre}</dd>
-              <dt>Author:</dt>
-              <dd>{this.state.book.author}</dd>
-              <dt>Description:</dt>
-              <dd>{this.state.book.description}</dd>
-              <dt>Publisher:</dt>
-              <dd>{this.state.book.publisher}</dd>
-              <dt>Pages:</dt>
-              <dd>{this.state.book.pages}</dd>
-              <dt>Image_Url:</dt>
-              <img src={this.state.book.image_url} alt={this.state.book.image_url}/>
-              <dt>Buy_Url:</dt>
-              <dd><a href={this.state.book.buy_url} target="_blank">Buy Now</a></dd>
-            </dl>
-            <Link to={`/edit_book/${this.state.book._id}`} className="btn btn-success">Edit</Link>&nbsp;
-            <button onClick={this.delete.bind(this, this.state.book._id)} className="btn btn-danger">Delete</button>
-          </div>
-        </div> */
-      }
     </div>);
   }
 }

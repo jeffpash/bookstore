@@ -4,8 +4,8 @@ import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 
 class AddBook extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       title: '',
       genre: '',
@@ -40,6 +40,14 @@ class AddBook extends Component {
       .catch( (error) => {
         console.log(error);
     });
+
+    // fetch('/api/books', {
+    //       method: 'POST',
+    //       headers : new Headers(),
+    //       body:JSON.stringify({ title, genre, description, author, publisher, pages, image_url, buy_url })
+    //   }).then((res) => res.json())
+    //   .then((data) =>  console.log(data))
+    //   .catch((err)=>console.log(err))
   }
 
   render() {
@@ -60,8 +68,8 @@ class AddBook extends Component {
                 <input type="text" className="form-control" name="title" value={title} onChange={this.onChange} placeholder="Title" />
               </div>
               <div className="form-group">
-                <label htmlFor="genre">Genre:</label>
-                <select  className="form-control">
+                 <label htmlFor="genre">Genre:</label>
+                <select  className="form-control" name="genre" value={genre} onChange={this.onChange}>
                   <option value="Suspense">Suspense</option>
                   <option value="Drama">Drama</option>
                   <option value="Fiction">Fiction</option>
@@ -69,7 +77,7 @@ class AddBook extends Component {
                   <option value="Romance">Romance</option>
                   <option value="NonFiction">NonFiction</option>
                   <option value="Other">Other</option>
-                </select>
+                </select> 
                 {/* <input type="text" className="form-control" name="genre" value={genre} onChange={this.onChange} /> */}
               </div>
               <div className="form-group">
