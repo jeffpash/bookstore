@@ -33,9 +33,7 @@ class AddBook extends Component {
     axios.post('/api/books', { title, genre, description, author, publisher, pages, image_url, buy_url })
       .then((res) => {
         this.props.history.push('/')
-        console.log(this.state);
         console.log(res);
-        console.log(res.data);
       })
       .catch( (error) => {
         console.log(error);
@@ -77,8 +75,7 @@ class AddBook extends Component {
                   <option value="Romance">Romance</option>
                   <option value="NonFiction">NonFiction</option>
                   <option value="Other">Other</option>
-                </select> 
-                {/* <input type="text" className="form-control" name="genre" value={genre} onChange={this.onChange} /> */}
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="author">Author:</label>

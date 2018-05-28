@@ -35,9 +35,17 @@ class Books extends Component {
             Genres
           </Link>
         </div>
+        <div className="navbar-brand">
+        <button type="button" className="btn btn-default btn-sm">
+          <span className="glyphicon glyphicon-search"></span> Search
+        </button>
+      </div>
       <h4 className="nav navbar-right">
         <Link to="/add_book" ><span className="glyphicon glyphicon-plus-sign" aria-hidden="true">
-        </span> Add Book </Link></h4>
+        </span> Add Book </Link>
+        <a className="btn btn-primary">Sign In</a>
+        <a className="btn btn-danger">Sign Up</a>
+      </h4>
         </div>
         <div className="row">
       <div className="panel panel-default">

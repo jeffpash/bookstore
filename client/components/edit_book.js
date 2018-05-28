@@ -61,8 +61,16 @@ class Edit extends Component {
               <input type="text" className="form-control" name="title" value={this.state.book.title} onChange={this.onChange} placeholder="Title"/>
             </div>
             <div className="form-group">
-              <label htmlFor="genre">Genre:</label>
-              <input type="text" className="form-control" name="genre" value={this.state.book.genre} onChange={this.onChange} placeholder="Genre"/>
+               <label htmlFor="genre">Genre:</label>
+              <select  className="form-control" name="genre" value={this.state.book.genre} onChange={this.onChange}>
+                <option value="Suspense">Suspense</option>
+                <option value="Drama">Drama</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Crime">Crime</option>
+                <option value="Romance">Romance</option>
+                <option value="NonFiction">NonFiction</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="author">Author:</label>
