@@ -7,14 +7,15 @@ class Details extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      book: {}
+      book: {},
+      genre: ''
     };
   }
 
   componentDidMount() {
     axios.get('/api/books/' + this.props.match.params.id).then(res => {
-      this.setState({book: res.data});
-      console.log(this.state.book);
+      this.setState({book: res.data, genre: res.data.genre.name});
+      console.log(res.data.genre.name);
     });
   }
 
@@ -49,7 +50,7 @@ class Details extends Component {
               <ul className="list-group">
                 <li className="list-group-item">
                   <strong>Genre: </strong>
-                  {this.state.book.genre}</li>
+                  {this.state.genre}</li>
                 <li className="list-group-item">
                   <strong>Author: </strong>
                   {this.state.book.author}</li>

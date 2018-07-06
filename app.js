@@ -43,9 +43,15 @@ app.put('/api/genres/:_id', (req, res) => {
 app.get('/api/genres/:name', (req, res) => {
   Genre.findOne({
         name: req.params.name
-    },(err, genre) => {
-    res.json(genre);
-  });
+    }
+  //   (err, genre) => {
+  //   res.json(genre);
+  // }
+)
+.populate('Book')
+.exec((err, genre) => {
+  res.json(genre)
+});
 });
 
 app.get('/api/books', (req, res) => {
@@ -56,6 +62,7 @@ app.get('/api/books', (req, res) => {
 
 app.post('/api/books', (req, res) => {
   const book = req.body;
+  book.genre=mongoose.Types.ObjectId(book.genre);
   Book.addBook(book, (err, book) => {
     if (err) res.json(err)
     else res.json(book);
@@ -71,9 +78,11 @@ app.put('/api/books/:_id', (req, res) => {
 });
 
 app.get('/api/books/:_id', (req, res) => {
-  Book.findById(req.params._id, (err, book) => {
-    res.json(book);
-  });
+  Book.findById(req.params._id)
+  .populate('genre', 'name')
+  .exec((err, book) => {
+    res.json(book)
+  });;
 });
 
 app.delete('/api/genres/:_id', (req, res) => {

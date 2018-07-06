@@ -47,7 +47,6 @@ class AddBook extends Component {
     //   .then((data) =>  console.log(data))
     //   .catch((err)=>console.log(err))
   }
-
   render() {
     const { title, genre, description, author, publisher, pages, image_url, buy_url } = this.state;
     return (
@@ -68,12 +67,14 @@ class AddBook extends Component {
               <div className="form-group">
                  <label htmlFor="genre">Genre:</label>
                 <select  className="form-control" name="genre" value={genre} onChange={this.onChange}>
-                  <option value="Suspense">Suspense</option>
+                  <option value="595ea95969255dc1ae021a41">Action</option>
+                  <option value="595ea96469255dc1ae021a42">Thriller</option>
+                  {/* <option value="Suspense">Suspense</option>
                   <option value="Drama">Drama</option>
-                  <option value="Fiction">Fiction</option>
-                  <option value="Crime">Crime</option>
-                  <option value="Romance">Romance</option>
-                  <option value="NonFiction">NonFiction</option>
+                  <option value="Fiction">Fiction</option> */}
+                  <option value="5a2a6a4302470f5c53cb194b">Computers</option>
+                  <option value="596355184abad214716edcbc">Romance</option>
+                  <option value="5a27fb7c89b72b3969815610">Biography</option>
                   <option value="Other">Other</option>
                 </select>
               </div>

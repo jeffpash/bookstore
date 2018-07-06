@@ -6,6 +6,11 @@ const genreSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  books: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book',
+    require: false
+  }],
   create_date: {
     type: Date,
     default: Date.now
@@ -21,9 +26,21 @@ module.exports.getGenres = (callback, limit) => {
 }
 
 //Get Genre
-module.exports.getGenreByName = (name, callback) => {
-  Genre.findByName(name, callback);
+module.exports.getGenre = (name, callback) => {
+  Genre.findOne({name: name})
+  // .populate('Book')
+  // .exec(err, genre) => {
+  //   console.log('working');
+  //   callback(genre)
+  // }
 }
+// module.exports.getGenre = (name, callback) => {
+//   Genre.findByName(name, callback)
+//   .populate('Book')
+//   .exec(err, genre) => {
+//     console.log('ggggrrrrrrr')
+//   };
+// }
 
 //Add Genre
 module.exports.addGenre = (genre, callback) => {

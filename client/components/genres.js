@@ -35,7 +35,6 @@ class Genres extends Component {
                this.state.allgenres.map(genre => {
                  return (<div className="book col-md-6" key={genre.id}>
                    <h3>{genre.name}</h3>
-
                </div>)})
              };
 
