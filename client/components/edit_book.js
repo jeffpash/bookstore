@@ -8,6 +8,7 @@ class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      allgenres: [],
       book: {}
     };
 
@@ -15,10 +16,20 @@ class Edit extends Component {
       this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // componentDidMount() {
+  //   axios.get('/api/genres').then(res => {
+  //     this.setState({allgenres: res.data});
+  //     console.log(this.state.allgenres);
+  //   });
+  // }
   componentDidMount() {
     axios.get('/api/books/' + this.props.match.params.id).then(res => {
       this.setState({book: res.data});
       console.log(this.state.book);
+    });
+    axios.get('/api/genres').then(res => {
+      this.setState({allgenres: res.data});
+      console.log(this.state.allgenres);
     });
   }
 
@@ -63,13 +74,13 @@ class Edit extends Component {
             <div className="form-group">
                <label htmlFor="genre">Genre:</label>
               <select  className="form-control" name="genre" value={this.state.book.genre} onChange={this.onChange}>
-                <option value="Suspense">Suspense</option>
-                <option value="Drama">Drama</option>
-                <option value="Fiction">Fiction</option>
-                <option value="Crime">Crime</option>
-                <option value="Romance">Romance</option>
-                <option value="NonFiction">NonFiction</option>
-                <option value="Other">Other</option>
+                {
+                  this.state.allgenres.map(genre => {
+                    return (<option value={genre._id} key={genre._id}>
+                      {genre.name}
+                    </option>)
+                  })
+                };
               </select>
             </div>
             <div className="form-group">

@@ -9,7 +9,7 @@ const bookSchema = mongoose.Schema({
   genre: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Genre',
-    required: false
+    required: true
   },
   description: {
     type: String,
@@ -49,6 +49,11 @@ module.exports.getBooks = (callback, limit) => {
 module.exports.getBookById = (id, callback) => {
   Book.findById(id, callback);
 }
+//Get Book By Genre
+module.exports.getBookByGenre = (genre_id, callback) => {
+  Book.find(genre_id, callback);
+}
+
 
 //Add Book
 module.exports.addBook = (book, callback) => {

@@ -14,6 +14,7 @@ class Details extends Component {
 
   componentDidMount() {
     axios.get('/api/books/' + this.props.match.params.id).then(res => {
+      console.log(res.data);
       this.setState({book: res.data, genre: res.data.genre.name});
       console.log(res.data.genre.name);
     });

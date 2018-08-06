@@ -4,15 +4,16 @@
    overflow: hidden;
  }
 
- #bookpage{
+ .parSize:hover {
+   overflow: scroll;
+ }
+
+ #ookpage{
    background-image: url("https://image.freepik.com/free-photo/vintage-paper-background-with-grunge-floral-design_1048-4182.jpg");
  }
 .row{
   background-color: #fff;
 }
- .parSize:hover {
-   overflow: scroll;
- }
 
  img {
    width: 100%;

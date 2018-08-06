@@ -9,7 +9,7 @@ const genreSchema = mongoose.Schema({
   books: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Book',
-    require: false
+    require: true
   }],
   create_date: {
     type: Date,
@@ -38,7 +38,7 @@ module.exports.getGenre = (name, callback) => {
 //   Genre.findByName(name, callback)
 //   .populate('Book')
 //   .exec(err, genre) => {
-//     console.log('ggggrrrrrrr')
+//     console.log(err)
 //   };
 // }
 
@@ -55,6 +55,14 @@ module.exports.updateGenre = (id, genre, options, callback) => {
   }
   Genre.findOneAndUpdate(query, update, options, callback);
 }
+// //Push Book in Genre
+// module.exports.pushBook = (id, book, options, callback) => {
+//   const query = {_id: id};
+//   const update = {
+//     $push:{books: book}
+//   }
+//   Genre.findOneAndUpdate(query, update, options, callback);
+// }
 
 //Delete Genre
 module.exports.removeGenre = (id, callback) => {

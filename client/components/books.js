@@ -62,7 +62,7 @@ class Books extends Component {
           <div className="row">
             {
               this.state.allbooks.map(book => {
-                return (<div className="book col-md-6" key={book.id}>
+                return (<div className="book col-md-6" key={book._id}>
                 <div className="col-md-6">
                   <h3>{book.title.toUpperCase()}</h3>
                   <p className="parSize">{book.description}</p>
