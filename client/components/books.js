@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Books extends Component {
   constructor(props) {
@@ -12,12 +13,11 @@ class Books extends Component {
   }
 
   componentDidMount() {
-   axios.get('/api/books')
-     .then(res => {
-       this.setState({ allbooks: res.data });
-       console.log(this.state.allbooks);
-     });
-   }
+    axios.get('/api/books').then(res => {
+      this.setState({allbooks: res.data});
+      console.log(this.state.allbooks);
+    });
+  }
   // componentDidMount() {
   //   fetch('/api/books').then(res => res.json()).then(allbooks => this.setState({allbooks}));
   // }
@@ -25,19 +25,29 @@ class Books extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="navbar-brand">
-            <strong>BOOKSTORE</strong>
-          </div>
-          <div className="nav navbar-brand pull-right">
-            <a className="btn btn-primary">Sign In</a>
-            <a className="btn btn-danger">Sign Up</a>
-          </div>
+      <div className="row">
+        <div className="navbar-brand">
+          <strong>BOOKSTORE</strong>
         </div>
-        <div className="row">
+        <form className="navbar-form navbar-left" role="search">
+          <div className="form-group">
+            <input type="text" className="form-control" placeholder="Search"/>
+          </div>
+          <button type="submit" className="btn btn-default">Submit</button>
+        </form>
+        <ul className="nav navbar-nav navbar-right">
+          <li>
+            <p className="navbar-text">Already have an account?</p>
+          </li>
+          <li>
+          <Link to='/login'><b>Login</b></Link>
+        </li>
+        </ul>
+      </div>
+      <div className="row">
         <div className="navbar-brand">
           <Link to={'/'}>
-          Books
+            Books
           </Link>
         </div>
         <div className="navbar-brand">
@@ -45,54 +55,81 @@ class Books extends Component {
             Genres
           </Link>
         </div>
-      <h4 className="nav navbar-nav pull-right">
-        <Link to="/add_book" ><span className="glyphicon glyphicon-plus-sign" aria-hidden="true">
-        </span> Add Book </Link>
-      <button type="submit" className="btn btn-default btn-md">
-        <span className="glyphicon glyphicon-search"></span> Search
-      </button>
-          </h4>
+        <div className="navbar-brand pull-right">
+          <Link to="/add_book">
+            <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            Add Book
+          </Link>
         </div>
-        <div className="row">
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title">Book List</h3>
-        </div>
-        <div className="panel-body">
-          <div className="row">
-            {
-              this.state.allbooks.map(book => {
-                return (<div className="book col-md-6" key={book._id}>
-                <div className="col-md-6">
-                  <h3>{book.title.toUpperCase()}</h3>
-                  <p className="parSize">{book.description}</p>
-                  <Link to={`/book_details/${book._id}`} className="btn btn-primary btn-block">view details&nbsp;
-                  <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></Link>
-                </div>
-                <div className="col-md-6">
-                  <img src={book.image_url} alt=""/>
-                </div>
-              </div>)})
-            }
+      </div>
+      <div className="row">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">Book List</h3>
+          </div>
+          <div className="panel-body">
+            <div className="row">
+              {
+                this.state.allbooks.map(book => {
+                  return (
+                    <div className="book col-md-6" key={book._id}>
+                    <div className="col-md-6">
+                      <h3>{book.title.toUpperCase()}</h3>
+                      <p className="parSize">{book.description}</p>
+                      <Link to={`/book_details/${book._id}`}
+                      className="btn btn-primary btn-block">view details&nbsp;
+                        <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                      </Link>
+                    </div>
+                    <div className="col-md-6">
+                      <img src={book.image_url} alt=""/>
+                    </div>
+                  </div>)
+                })
+              }
 
+            </div>
+          </div>
+          <div className="panel-footer">
+            <div className="row">
+              <div className="cont col-md-2">
+                <Link to="#">
+                  <i className="fab fa-linkedin"/>&nbsp;
+                  linkedin
+                </Link>
+              </div>
+                <div className="cont col-md-2">
+                <Link to="#">
+                  <i className="fab fa-facebook-f" />&nbsp;
+                  facebook
+                </Link>
+              </div>
+                <div className="cont col-md-2">
+                <Link to="#">
+                  <i className="fab fa-google-plus-g"></i>&nbsp;
+                  google+
+                </Link>
+              </div>
+              <div className="cont col-md-2">
+                <Link to="#">
+                <i className="fab fa-twitter" />&nbsp;
+                twitter
+              </Link>
+              </div>
+                <div className="col-md-2">
+                  <i className="fas fa-envelope"></i>&nbsp;
+                  <Link to="#">
+                  contact us :Email@gmail.com
+                  </Link>
+                </div>
+                <div className="col-md-2">
+                  <i>&copy; 2018 BookStore,powered by jeffpash.Inc.</i>
+                </div>
+            </div>
           </div>
         </div>
-        <div className="panel-footer">
-          <div className="row">
-          <div className="cont col-md-4">
-            <button type="button" className="btn btn-li"><i className="fa fa-linkedin"></i></button>
-          </div>
-          <div className="social col-md-4">
-            <button type="button" className="btn btn-li"><i className="fa fa-linkedin"></i></button>
-          </div>
-          <div className="cont col-md-4">
-          <button type="button" className="btn btn-li"><i className="fa fa-linkedin"></i></button>
-          </div></div>
-        </div>
       </div>
-    </div>
-      </div>
-    );
+    </div>);
   };
 }
 

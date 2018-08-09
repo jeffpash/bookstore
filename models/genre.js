@@ -28,19 +28,7 @@ module.exports.getGenres = (callback, limit) => {
 //Get Genre
 module.exports.getGenre = (name, callback) => {
   Genre.findOne({name: name})
-  // .populate('Book')
-  // .exec(err, genre) => {
-  //   console.log('working');
-  //   callback(genre)
-  // }
 }
-// module.exports.getGenre = (name, callback) => {
-//   Genre.findByName(name, callback)
-//   .populate('Book')
-//   .exec(err, genre) => {
-//     console.log(err)
-//   };
-// }
 
 //Add Genre
 module.exports.addGenre = (genre, callback) => {

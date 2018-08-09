@@ -16,12 +16,6 @@ class Edit extends Component {
       this.onSubmit = this.onSubmit.bind(this);
   }
 
-  // componentDidMount() {
-  //   axios.get('/api/genres').then(res => {
-  //     this.setState({allgenres: res.data});
-  //     console.log(this.state.allgenres);
-  //   });
-  // }
   componentDidMount() {
     axios.get('/api/books/' + this.props.match.params.id).then(res => {
       this.setState({book: res.data});
