@@ -1,76 +1,66 @@
 import React, { Component } from 'react';
-// import './App.css';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class LoginPage extends Component {
+
   constructor() {
     super();
     this.state = {
       username: '',
       password: '',
-      error: ''
+      message: ''
     };
-
-    this.handlePassChange = this.handlePassChange.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.dismissError = this.dismissError.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onChange(e) {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
   }
 
-  dismissError() {
-    this.setState({ error: '' });
-  }
+  onSubmit(e) {
+    e.preventDefault();
 
-  handleSubmit(evt) {
-    evt.preventDefault();
-
-    if (!this.state.username) {
-      return this.setState({ error: 'Username is required' });
+    const { username, password } = this.state;
+axios.post('/api/auth/login', { username, password })
+  .then((result) => {
+    localStorage.setItem('jwtToken', result.data.token);
+    this.setState({ message: '' });
+    this.props.history.push('/')
+  })
+  .catch((error) => {
+    if(error.response.status === 401) {
+      this.setState({ message: 'Login failed. Username or password not match' });
     }
+  });
+}
 
-    if (!this.state.password) {
-      return this.setState({ error: 'Password is required' });
-    }
-
-    return this.setState({ error: '' });
-  }
-
-  handleUserChange(evt) {
-    this.setState({
-      username: evt.target.value,
-    });
-  };
-
-  handlePassChange(evt) {
-    this.setState({
-      password: evt.target.value,
-    });
-  }
-
-  render() {
-    // NOTE: I use data-attributes for easier E2E testing
-    // but you don't need to target those (any css-selector will work)
-
-    return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          {
-            this.state.error &&
-            <h3 data-test="error" onClick={this.dismissError}>
-              <button onClick={this.dismissError}>✖</button>
-              {this.state.error}
-            </h3>
-          }
-          <label>User Name</label>
-          <input type="text" data-test="username" value={this.state.username} onChange={this.handleUserChange} />
-
-          <label>Password</label>
-          <input type="password" data-test="password" value={this.state.password} onChange={this.handlePassChange} />
-
-          <input type="submit" value="Log In" data-test="submit" />
-        </form>
-      </div>
-    );
-  }
+render() {
+const { username, password, message } = this.state;
+return (
+  <div className="container">
+    <form className="form-signin" onSubmit={this.onSubmit}>
+      {message !== '' &&
+        <div className="alert alert-warning alert-dismissible" role="alert">
+          { message }
+        </div>
+      }
+      <h2 className="form-signin-heading">Please sign in</h2>
+      <label htmlFor="inputEmail" className="sr-only">Email address</label>
+      <input type="email" className="form-control" placeholder="Email address" name="username" value={username} onChange={this.onChange} required/>
+      <label htmlFor="inputPassword" className="sr-only">Password</label>
+      <input type="password" className="form-control" placeholder="Password" name="password" value={password} onChange={this.onChange} required/>
+      <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+      <p>
+        Not a member? <Link to="/register"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
+      </p>
+    </form>
+  </div>
+);
+}
 }
 
 export default LoginPage;

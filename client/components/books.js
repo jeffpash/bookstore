@@ -13,11 +13,23 @@ class Books extends Component {
   }
 
   componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/books').then(res => {
       this.setState({allbooks: res.data});
       console.log(this.state.allbooks);
-    });
+    })
+    .catch((error) => {
+  if(error.response.status === 401) {
+    this.props.history.push("/login");
   }
+});
+}
+
+logout () {
+localStorage.removeItem('jwtToken');
+window.location.reload();
+}
+
   // componentDidMount() {
   //   fetch('/api/books').then(res => res.json()).then(allbooks => this.setState({allbooks}));
   // }
@@ -36,12 +48,20 @@ class Books extends Component {
           <button type="submit" className="btn btn-default">Submit</button>
         </form>
         <ul className="nav navbar-nav navbar-right">
-          <li>
+          {/* <li>
             <p className="navbar-text">Already have an account?</p>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
           <Link to='/login'><b>Login</b></Link>
-        </li>
+        </li> */}
+        {/* <li>
+        <Link to='/register'><b>Register</b></Link>
+      </li> */}
+      <li>
+        {localStorage.getItem('jwtToken') &&
+                <p className="navbar-text" onClick={this.logout}><b>Logout&nbsp;&nbsp;<span className="glyphicon glyphicon-off"/></b></p>
+              }
+    </li>
         </ul>
       </div>
       <div className="row">

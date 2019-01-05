@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom';
+import registerServiceWorker from '../registerServiceWorker';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,6 +13,7 @@ import Books from './books';
 import AddBook from './add_book';
 import Details from './book_details';
 import Edit from './edit_book';
+import Register from './register';
 import LoginPage from './login';
 
 class Bookstore extends Component {
@@ -21,6 +23,7 @@ class Bookstore extends Component {
         <Switch>
           <Route exact path='/' component={Books}/>
           <Route exact path='/login' component={LoginPage}/>
+          <Route exact path='/register' component={Register}/>
           <Route exact path='/genres' component={Genres}/>
           <Route exact path='/add_book' component={AddBook}/>
           <Route exact path='/book_details/:id' component={Details}/>
@@ -31,3 +34,4 @@ class Bookstore extends Component {
 }
 
 export default Bookstore;
+registerServiceWorker();

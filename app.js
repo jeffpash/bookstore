@@ -1,21 +1,53 @@
 const express = require('express');
+const router = express.Router();
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+require('./config/passport')(passport);
+const LocalStrategy = require('passport-local').Strategy;
+const mongo = require('mongodb');
 const app = express();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+var auth = require('./routes/auth');
 
 const Genre = require('./models/genre');
 const Book = require('./models/book');
+const users = require('./routes/users');
+// const routes = require('./routes/index');
 
 app.use(express.static(__dirname + '/client'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use('/users', users);
+// app.use('/', routes);
+app.use('/api/auth', auth);
 
-//mongoose connect
-mongoose.connect('mongodb://localhost/bookstore');
+ //mongoose connect
+mongoose.Promise = require('bluebird');
+mongoose.connect('mongodb://localhost/bookstore',
+ { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection successsful'))
+  .catch((err) => console.error(err));
+
 const db = mongoose.connection;
+
+getToken = function (headers) {
+  if (headers && headers.authorization) {
+    var parted = headers.authorization.split(' ');
+    if (parted.length === 2) {
+      return parted[1];
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+};
 
 app.get('/', (req, res) => {
   res.send('use /api/books or /api/genres');
@@ -26,29 +58,6 @@ app.get('/api/genres', (req, res) => {
     if (err)
       return res.json(err)
     res.json(genres);
-  });
-});
-
-app.post('/api/logins', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({message: 'Post created...', authData});
-    }
-  });
-});
-
-app.post('/api/login', (req, res) => {
-  const user = {
-    id: 5,
-    name: 'jeffpash',
-    email: 'jeff@gmail.com'
-  }
-  jwt.sign({
-    user
-  }, 'secretkey', (err, token) => {
-    res.json({token});
   });
 });
 
@@ -80,6 +89,17 @@ app.get('/api/genres/:name', (req, res) => {
     res.json(genre)
   });
 });
+// app.post('/api/books', passport.authenticate('jwt', { session: false}), function(req, res) {
+//   var token = getToken(req.headers);
+//   if (token) {
+//     Book.addBook(req.body, function (err, book) {
+//       if (err) return next(err);
+//       res.json(book);
+//     });
+//   } else {
+//     return res.status(403).send({success: false, msg: 'Unauthorized.'});
+//   }
+// });
 
 app.post('/api/books', (req, res) => {
   const book = req.body;
@@ -91,14 +111,25 @@ app.post('/api/books', (req, res) => {
     }
   );
 });
-
-app.get('/api/books', (req, res) => {
-  Book.find((err, books) => {
-    if (err)
-      return res.json(err)
-    res.json(books);
-  });
+app.get('/api/books', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    Book.find(function (err, books) {
+      if (err) return next(err);
+      res.json(books);
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'Unauthorized.'});
+  }
 });
+
+// app.get('/api/books', (req, res) => {
+//   Book.find((err, books) => {
+//     if (err)
+//       return res.json(err)
+//     res.json(books);
+//   });
+// });
 
 app.get('/api/books/:_id', (req, res) => {
   Book.findById(req.params._id)
@@ -155,26 +186,27 @@ app.delete('/api/genres/:_id', (req, res) => {
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
 
-// Verify Token
-function verifyToken(req, res, next) {
-  // Get auth header value
-  const bearerHeader = req.headers['authorization'];
-  // Check if bearer is undefined
-  if (typeof bearerHeader !== 'undefined') {
-    // Split at the space
-    const bearer = bearerHeader.split(' ');
-    // Get token from array
-    const bearerToken = bearer[1];
-    // Set the token
-    req.token = bearerToken;
-    // Next middleware
-    next();
-  } else {
-    // Forbidden
-    res.sendStatus(403);
-  }
+// // Verify Token
+// function verifyToken(req, res, next) {
+//   // Get auth header value
+//   const bearerHeader = req.headers['authorization'];
+//   // Check if bearer is undefined
+//   if (typeof bearerHeader !== 'undefined') {
+//     // Split at the space
+//     const bearer = bearerHeader.split(' ');
+//     // Get token from array
+//     const bearerToken = bearer[1];
+//     // Set the token
+//     req.token = bearerToken;
+//     // Next middleware
+//     next();
+//   } else {
+//     // Forbidden
+//     res.sendStatus(403);
+//   }
+//
+// }
 
-}
 
 app.listen(3000, () => {
   console.log('Running server on port 3000...');
