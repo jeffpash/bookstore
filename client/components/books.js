@@ -31,7 +31,9 @@ window.location.reload();
 }
 
   // componentDidMount() {
-  //   fetch('/api/books').then(res => res.json()).then(allbooks => this.setState({allbooks}));
+  //   fetch('/api/books')
+  //.then(res => res.json())
+  //.then(allbooks => this.setState({allbooks}));
   // }
 
   render() {
